@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Métodos de Pago – Tienda Los Pecados de Mary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="payments-page-body">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <a href="index.html" class="back-link" aria-label="Volver a la tienda">
+        &#8592; Volver a la Tienda
+      </a>
+      <div class="school-badge">The New School · Medellín</div>
+      <div class="header-actions">
+        <button id="soundToggleBtn" class="sound-toggle-btn" aria-label="Activar o silenciar sonidos" title="Sonido activado">
+          <span id="soundIcon">🔊</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambiar tema día/noche" title="Cambiar tema">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </div>
+    <div class="logo-area">
+      <div class="logo-svg-wrap">
+        <img src="logo.png" alt="Tienda Los Pecados de Mary - The New School" class="logo-img" />
+      </div>
+      <h1 class="store-title">Transferencias & Pagos<br><span>Los Pecados de Mary</span></h1>
+    </div>
+  </header>
+
+  <!-- MAIN PAYMENTS CONTENT -->
+  <main class="payments-container">
+    <div class="payments-card">
+      <div class="payments-header">
+        <span class="payments-icon">📲</span>
+        <h2>Código QR de Pago</h2>
+        <p>Escanea el código QR desde tu app bancaria (Bancolombia, Nequi, Daviplata o cualquier banco con Bre-B).</p>
+      </div>
+
+      <!-- QR CODE CONTAINER -->
+      <div class="qr-box-wrapper">
+        <!-- Espacio para colocar la imagen de tu código QR -->
+        <!-- Cuando tengas tu imagen, colócala en esta carpeta y actualiza el src a src="qr-pago.png" -->
+        <div class="qr-placeholder" id="qrContainer">
+          <img src="qr-pago.png" alt="Código QR de Pago" class="qr-image" onerror="this.style.display='none'; document.getElementById('qrFallback').style.display='flex';" />
+          
+          <div id="qrFallback" class="qr-fallback" style="display:none;">
+            <span class="qr-fallback-icon">📷</span>
+            <span class="qr-fallback-title">Espacio para tu Código QR</span>
+            <span class="qr-fallback-desc">Guarda tu imagen como <code>qr-pago.png</code> en la carpeta de la tienda para que se muestre aquí automáticamente.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BANK ACCOUNT DETAILS -->
+      <div class="account-details-box">
+        <h3 class="account-details-title">💳 Información de la Cuenta</h3>
+
+        <div class="detail-row">
+          <div class="detail-label-group">
+            <span class="detail-label">Banco / Plataforma:</span>
+            <span class="detail-value highlight-bank">Bancolombia / Nequi</span>
+          </div>
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-label-group">
+            <span class="detail-label">Tipo de Cuenta:</span>
+            <span class="detail-value">Ahorros</span>
+          </div>
+        </div>
+
+        <div class="detail-row detail-row-copyable">
+          <div class="detail-label-group">
+            <span class="detail-label">Número de Cuenta / Celular:</span>
+            <span class="detail-value account-number" id="accountNumberText">3205039365</span>
+          </div>
+          <button class="copy-btn" id="copyAccountBtn" aria-label="Copiar número de cuenta">
+            <span id="copyIcon">📋</span> Copiar
+          </button>
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-label-group">
+            <span class="detail-label">Titular:</span>
+            <span class="detail-value">Mary Luz Gómez · Tienda The New School</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- INSTRUCTIONS -->
+      <div class="payment-steps">
+        <h3>📝 Pasos para realizar tu pago:</h3>
+        <ol>
+          <li>Abre tu aplicación bancaria (Nequi, Bancolombia, etc.).</li>
+          <li>Escanea el código QR o copia el número de cuenta arriba.</li>
+          <li>Ingresa el valor exacto de tu pedido.</li>
+          <li>Guarda el comprobante de pago o captura de pantalla.</li>
+          <li>Presenta tu comprobante en la tienda al momento de reclamar tu pedido. 💛</li>
+        </ol>
+      </div>
+
+      <div class="payments-action">
+        <a href="index.html" class="btn-return-store">🛍️ Regresar a la Tienda</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">🛍️</div>
+    <p><strong>Tienda Los Pecados de Mary</strong></p>
+    <p>The New School · Medellín</p>
+    <p class="footer-note">¡Gracias por tu compra! 💛</p>
+  </footer>
+
+  <script>
+    // Modo Oscuro
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+
+    function applyTheme(isDark) {
+      if (isDark) {
+        document.body.classList.add('dark-theme');
+        if (themeIcon) themeIcon.textContent = '☀️';
+      } else {
+        document.body.classList.remove('dark-theme');
+        if (themeIcon) themeIcon.textContent = '🌙';
+      }
+    }
+
+    const savedTheme = localStorage.getItem('mary_theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(savedTheme ? savedTheme === 'dark' : prefersDark);
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const isDarkNow = !document.body.classList.contains('dark-theme');
+        applyTheme(isDarkNow);
+        localStorage.setItem('mary_theme', isDarkNow ? 'dark' : 'light');
+        showToast(isDarkNow ? 'Modo oscuro activado' : 'Modo claro activado', isDarkNow ? '🌙' : '☀️');
+      });
+    }
+
+    // Copiar número de cuenta
+    const copyBtn = document.getElementById('copyAccountBtn');
+    const accountNumberText = document.getElementById('accountNumberText');
+
+    if (copyBtn && accountNumberText) {
+      copyBtn.addEventListener('click', () => {
+        const num = accountNumberText.textContent.trim();
+        navigator.clipboard.writeText(num).then(() => {
+          copyBtn.innerHTML = '<span>✅</span> ¡Copiado!';
+          showToast('¡Número de cuenta copiado al portapapeles!', '📋');
+          setTimeout(() => {
+            copyBtn.innerHTML = '<span id="copyIcon">📋</span> Copiar';
+          }, 2000);
+        }).catch(() => {
+          // Fallback
+          showToast('Número: ' + num, '📋');
+        });
+      });
+    }
+
+    // Toast helper
+    function showToast(message, emoji = '✨') {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<span>${emoji}</span> <span>${message}</span>`;
+      container.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.add('show');
+      });
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 300);
+      }, 2200);
+    }
+  </script>
+</body>
+</html>

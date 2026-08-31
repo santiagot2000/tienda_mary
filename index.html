@@ -14,83 +14,49 @@
   <header class="header">
     <div class="header-top">
       <div class="school-badge">The New School · Medellín</div>
+      <div class="header-actions">
+        <a href="pagos.html" class="header-pay-link" title="Ver código QR y cuentas de pago">
+          💳 Pagos / QR
+        </a>
+        <button id="soundToggleBtn" class="sound-toggle-btn" aria-label="Activar o silenciar sonidos" title="Sonido activado">
+          <span id="soundIcon">🔊</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambiar tema día/noche" title="Cambiar tema">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
     </div>
     <div class="logo-area">
       <div class="logo-svg-wrap">
-        <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
-          <circle cx="140" cy="140" r="136" fill="#f5c500"/>
-          <circle cx="140" cy="140" r="128" fill="#1a2e5a"/>
-          <circle cx="140" cy="140" r="120" fill="#f5c500"/>
-          <circle cx="140" cy="140" r="112" fill="#1a2e5a"/>
-          <circle cx="140" cy="140" r="105" fill="#ffffff"/>
-          <!-- Store body -->
-          <rect x="55" y="128" width="170" height="90" rx="4" fill="#f0f4ff" stroke="#1a2e5a" stroke-width="2"/>
-          <!-- Roof dark -->
-          <rect x="42" y="110" width="196" height="26" rx="6" fill="#1a2e5a"/>
-          <!-- Awning stripes -->
-          <rect x="48" y="114" width="14" height="20" rx="2" fill="#f5c500"/>
-          <rect x="68" y="114" width="14" height="20" rx="2" fill="#f5c500"/>
-          <rect x="88" y="114" width="14" height="20" rx="2" fill="#f5c500"/>
-          <rect x="108" y="114" width="14" height="20" rx="2" fill="#f5c500"/>
-          <rect x="128" y="114" width="14" height="20" rx="2" fill="#f5c500"/>
-          <rect x="148" y="114" width="14" height="20" rx="2" fill="#f5c500"/>
-          <rect x="168" y="114" width="14" height="20" rx="2" fill="#f5c500"/>
-          <rect x="188" y="114" width="14" height="20" rx="2" fill="#f5c500"/>
-          <rect x="208" y="114" width="14" height="20" rx="2" fill="#f5c500"/>
-          <!-- Sign board -->
-          <rect x="78" y="94" width="104" height="20" rx="5" fill="#f5c500" stroke="#1a2e5a" stroke-width="1.5"/>
-          <text x="130" y="108" text-anchor="middle" font-family="Arial Black, Arial" font-size="7" font-weight="900" fill="#1a2e5a">LOS PECADOS DE MARY</text>
-          <!-- Triangle roof -->
-          <polygon points="140,72 52,100 228,100" fill="#1a2e5a"/>
-          <polygon points="140,78 60,100 220,100" fill="#f5c500"/>
-          <polygon points="140,85 70,100 210,100" fill="#1a2e5a"/>
-          <!-- Left window -->
-          <rect x="66" y="138" width="44" height="34" rx="3" fill="#cfe4ff" stroke="#1a2e5a" stroke-width="1.5"/>
-          <line x1="88" y1="138" x2="88" y2="172" stroke="#1a2e5a" stroke-width="1"/>
-          <line x1="66" y1="155" x2="110" y2="155" stroke="#1a2e5a" stroke-width="1"/>
-          <!-- Right window -->
-          <rect x="170" y="138" width="44" height="34" rx="3" fill="#cfe4ff" stroke="#1a2e5a" stroke-width="1.5"/>
-          <line x1="192" y1="138" x2="192" y2="172" stroke="#1a2e5a" stroke-width="1"/>
-          <line x1="170" y1="155" x2="214" y2="155" stroke="#1a2e5a" stroke-width="1"/>
-          <!-- Door -->
-          <rect x="114" y="152" width="52" height="66" rx="4" fill="#1a2e5a" stroke="#f5c500" stroke-width="1.5"/>
-          <ellipse cx="140" cy="152" rx="26" ry="10" fill="#f5c500"/>
-          <ellipse cx="140" cy="152" rx="20" ry="7" fill="#1a2e5a"/>
-          <circle cx="157" cy="187" r="3" fill="#f5c500"/>
-          <!-- Flag -->
-          <rect x="137" y="50" width="3" height="26" fill="#1a2e5a"/>
-          <polygon points="140,52 162,60 140,68" fill="#f5c500"/>
-          <!-- Stars -->
-          <polygon points="36,128 39,137 48,137 41,143 44,152 36,146 28,152 31,143 24,137 33,137" fill="#f5c500"/>
-          <polygon points="244,128 247,137 256,137 249,143 252,152 244,146 236,152 239,143 232,137 241,137" fill="#f5c500"/>
-          <!-- Hearts -->
-          <path d="M46,168 C46,162 52,159 56,163 C60,159 66,162 66,168 C66,176 56,183 56,183 C56,183 46,176 46,168Z" fill="#e8455a"/>
-          <path d="M214,168 C214,162 220,159 224,163 C228,159 234,162 234,168 C234,176 224,183 224,183 C224,183 214,176 214,168Z" fill="#e8455a"/>
-          <!-- TIENDA text -->
-          <text x="140" y="66" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="700" fill="#1a2e5a" letter-spacing="4">TIENDA</text>
-          <line x1="55" y1="61" x2="100" y2="61" stroke="#1a2e5a" stroke-width="1.5"/>
-          <line x1="180" y1="61" x2="225" y2="61" stroke="#1a2e5a" stroke-width="1.5"/>
-          <!-- Bottom text -->
-          <text x="140" y="228" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="600" fill="#1a2e5a" letter-spacing="1.5">THE NEW SCHOOL · MEDELLÍN</text>
-          <line x1="55" y1="233" x2="110" y2="233" stroke="#1a2e5a" stroke-width="1"/>
-          <line x1="170" y1="233" x2="225" y2="233" stroke="#1a2e5a" stroke-width="1"/>
-        </svg>
+        <img src="logo.png" alt="Tienda Los Pecados de Mary - The New School" class="logo-img" />
       </div>
       <h1 class="store-title">Tienda<br><span>Los Pecados de Mary</span></h1>
     </div>
 
-    <!-- SEARCH BAR -->
+    <!-- SEARCH BAR & CART BUTTON -->
     <div class="search-wrap">
       <span class="search-icon">🔍</span>
       <input type="text" id="searchInput" placeholder="Buscar producto..." />
+      <button id="cartToggleBtn" class="cart-toggle-btn" aria-label="Ver Pedido">
+        🛒 <span id="cartBadge" class="cart-badge">0</span>
+      </button>
     </div>
   </header>
+
+  <!-- STORE REALTIME STATUS BANNER -->
+  <div id="storeStatusBanner" class="status-banner">
+    <div class="status-banner-content">
+      <span class="status-indicator-dot" id="statusDot"></span>
+      <span id="statusText" class="status-text">Verificando descansos escolares...</span>
+    </div>
+  </div>
 
   <!-- CATEGORY TABS -->
   <div class="cat-nav-wrap">
     <button class="cat-arrow" id="arrowLeft" aria-label="Anterior">&#8592;</button>
     <nav class="cat-nav" id="catNav">
       <button class="cat-btn active" data-cat="all">🛒 Todo</button>
+      <button class="cat-btn cat-fav-btn" data-cat="favorites">⭐ Favoritos (<span id="favCount">0</span>)</button>
       <button class="cat-btn" data-cat="mecato">🍟 Mecato</button>
       <button class="cat-btn" data-cat="galletas">🍪 Galletas</button>
       <button class="cat-btn" data-cat="snacks">🧀 Snacks Salados</button>
@@ -109,14 +75,113 @@
     <button class="cat-arrow" id="arrowRight" aria-label="Siguiente">&#8594;</button>
   </div>
 
-  <!-- PRODUCTS GRID -->
-  <main class="products-section">
+  <!-- PRODUCTS SECTION -->
+  <main class="products-section" id="productsMain">
+    <!-- Toolbar de filtros / contador y orden -->
+    <div class="products-toolbar">
+      <div class="toolbar-left">
+        <span id="productsCount" class="products-count">Cargando productos...</span>
+      </div>
+      <div class="toolbar-right">
+        <button id="surpriseMeBtn" class="surprise-btn" title="¿No sabes qué comer? ¡Gira la ruleta del recreo!">
+          🎲 ¡Sorpréndeme!
+        </button>
+        <div class="sort-wrap">
+          <label for="sortSelect" class="sort-label">Ordenar:</label>
+          <select id="sortSelect" class="sort-select">
+            <option value="default">✨ Recomendados</option>
+            <option value="price-asc">💵 Menor precio</option>
+            <option value="price-desc">💎 Mayor precio</option>
+            <option value="name-asc">🔤 Nombre (A - Z)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
     <div id="noResults" class="no-results hidden">
       <span>😕</span>
-      <p>No encontramos ese producto.<br>¡Intenta con otra palabra!</p>
+      <p id="noResultsMsg">No encontramos ese producto.<br>¡Intenta con otra palabra!</p>
     </div>
     <div class="grid" id="productGrid"></div>
   </main>
+
+  <!-- PRODUCT DETAIL MODAL -->
+  <div id="productModal" class="product-modal hidden" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="product-modal-content">
+      <button id="productModalCloseBtn" class="product-modal-close" aria-label="Cerrar">&times;</button>
+      <div class="detail-header">
+        <span id="detailEmoji" class="detail-emoji">🍟</span>
+        <div class="detail-titles">
+          <span id="detailCategory" class="detail-category">Mecato</span>
+          <h2 id="detailTitle" class="detail-title">Nombre del Producto</h2>
+          <span id="detailPriceUnit" class="detail-price-unit">$ 0</span>
+        </div>
+      </div>
+      <div class="detail-body">
+        <p id="detailDescription" class="detail-description">Delicioso producto disponible en la Tienda Los Pecados de Mary para disfrutar en tus descansos.</p>
+        
+        <div class="detail-qty-picker-wrap">
+          <label class="qty-picker-label">Seleccionar cantidad:</label>
+          <div class="detail-qty-control">
+            <button id="detailBtnMinus" class="detail-qty-btn" aria-label="Disminuir cantidad">-</button>
+            <input type="number" id="detailQtyInput" class="detail-qty-input" value="1" min="1" max="99" readonly />
+            <button id="detailBtnPlus" class="detail-qty-btn" aria-label="Aumentar cantidad">+</button>
+          </div>
+          <div class="detail-quick-btns">
+            <button class="quick-qty-btn" data-qty="1">+1</button>
+            <button class="quick-qty-btn" data-qty="2">+2</button>
+            <button class="quick-qty-btn" data-qty="3">+3</button>
+            <button class="quick-qty-btn" data-qty="5">+5</button>
+          </div>
+        </div>
+
+        <div class="detail-subtotal-row">
+          <span>Subtotal:</span>
+          <span id="detailSubtotalPrice" class="detail-subtotal-price">$ 0</span>
+        </div>
+      </div>
+      <div class="detail-footer">
+        <button id="detailAddToCartBtn" class="detail-add-btn">
+          <span>🛒</span> Agregar al Pedido (<span id="detailBtnPrice">$ 0</span>)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART MODAL -->
+  <div id="cartModal" class="cart-modal hidden" role="dialog" aria-modal="true" aria-labelledby="cartModalTitle">
+    <div class="cart-modal-content">
+      <div class="cart-modal-header">
+        <div class="cart-header-title-wrap">
+          <h2 id="cartModalTitle">🛒 Tu Pedido</h2>
+          <span id="cartCountHeader" class="cart-count-pill">0 items</span>
+        </div>
+        <button id="cartCloseBtn" class="cart-close-btn" aria-label="Cerrar pedido">&times;</button>
+      </div>
+      <div id="cartItemsList" class="cart-items-list">
+        <p class="empty-cart-msg">Tu pedido está vacío 🥑</p>
+      </div>
+      <div class="cart-modal-footer">
+        <div class="cart-summary-box">
+          <div class="cart-summary-row">
+            <span>Cantidad de productos:</span>
+            <span id="cartTotalItems">0</span>
+          </div>
+          <div class="cart-total-row">
+            <span>Total:</span>
+            <span id="cartTotal">$ 0</span>
+          </div>
+        </div>
+        <div class="cart-actions-row">
+          <button id="clearCartBtn" class="clear-cart-btn" aria-label="Vaciar Carrito">🗑️ Vaciar Carrito</button>
+          <button id="continueShoppingBtn" class="continue-btn" aria-label="Seguir Explorando">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
   <!-- FOOTER -->
   <footer class="footer">
@@ -129,13 +194,22 @@
       <!-- Contacto -->
       <div class="footer-contact">
         <p class="footer-contact-title">📞 Contáctanos</p>
-        <a class="footer-link" href="https://api.whatsapp.com/send?phone=573205039365">
+        <a class="footer-link" href="https://api.whatsapp.com/send?phone=573205039365" target="_blank" rel="noopener noreferrer">
           💬 WhatsApp: (320) 5039365
         </a>
         <a class="footer-link" href="mailto:Correo@thenewschool.edu.co">
           ✉️ Correo
         </a>
         <p class="footer-address">📍 Carrera 9 #11Sur 338, Medellín</p>
+      </div>
+
+      <!-- Pagos & Transferencias -->
+      <div class="footer-contact footer-payment-box">
+        <p class="footer-contact-title">💳 Pagos & QR</p>
+        <p class="footer-payment-desc">Transferencias Bancolombia & Nequi disponibles para tus compras.</p>
+        <a href="pagos.html" class="footer-payment-btn">
+          📲 Ver Código QR & Datos de Pago
+        </a>
       </div>
 
       <!-- Horarios -->
@@ -168,6 +242,39 @@
 
   <!-- BOTÓN SUBIR ARRIBA -->
   <button id="btnTop" class="btn-top" aria-label="Volver arriba">&#8679;</button>
+
+  <!-- SURPRISE / ROULETTE MODAL -->
+  <div id="surpriseModal" class="surprise-modal hidden" role="dialog" aria-modal="true" aria-labelledby="surpriseModalTitle">
+    <div class="surprise-modal-content">
+      <button id="surpriseCloseBtn" class="product-modal-close" aria-label="Cerrar">&times;</button>
+      
+      <div class="surprise-header">
+        <span class="surprise-badge">🎲 The New School</span>
+        <h2 id="surpriseModalTitle" class="surprise-title">Ruleta del Recreo</h2>
+        <p class="surprise-subtitle">¿No sabes qué comer? ¡Deja que la suerte elija tu mecato de hoy!</p>
+      </div>
+
+      <div class="roulette-box">
+        <div id="rouletteSlot" class="roulette-slot">
+          <span id="rouletteEmoji" class="roulette-emoji">🎲</span>
+          <div class="roulette-info">
+            <span id="rouletteCat" class="roulette-cat">Toca para jugar</span>
+            <h3 id="rouletteName" class="roulette-name">¿Cuál será tu snack?</h3>
+            <span id="roulettePrice" class="roulette-price">$ 0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="surprise-actions">
+        <button id="spinRouletteBtn" class="spin-btn">
+          ✨ ¡Girar la Ruleta! 🎲
+        </button>
+        <button id="addSurpriseToCartBtn" class="surprise-add-cart-btn hidden">
+          🛒 ¡Me lo llevo! Agregar al Pedido
+        </button>
+      </div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>
