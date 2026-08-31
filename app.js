@@ -993,18 +993,18 @@ function updateStoreStatus() {
   if (!isFriday) {
     // Lunes a Jueves
     breaks = [
-      { name: 'Preescolar (Descanso 1)', start: 9 * 60, end: 9 * 60 + 30, timeStr: '9:00 - 9:30 AM' },
-      { name: 'Primaria (Descanso 1)', start: 9 * 60 + 30, end: 10 * 60, timeStr: '9:30 - 10:00 AM' },
-      { name: 'Preescolar (Descanso 2)', start: 11 * 60 + 30, end: 12 * 60, timeStr: '11:30 - 12:00 M' },
-      { name: 'Primaria (Descanso 2)', start: 12 * 60, end: 12 * 60 + 30, timeStr: '12:00 - 12:30 M' },
+      { name: 'Preescolar (Descanso 1)', start: 10 * 30, end: 10 * 30 + 40, timeStr: '10:30 - 11:10 AM' },
+      { name: 'Primaria (Descanso 1)', start: 9 * 50, end: 9 * 50 + 40, timeStr: '9:50 - 10:30 AM' },
+      { name: 'Preescolar (Descanso 2)', start: 13 * 10, end: 13 * 10 + 40, timeStr: '1:10 - 1:50 PM' },
+      { name: 'Primaria (Descanso 2)', start: 12 * 30, end: 12 * 30 + 40, timeStr: '12:30 - 1:10 PM' },
     ];
   } else {
     // Viernes
     breaks = [
-      { name: 'Preescolar (Descanso 1)', start: 9 * 60, end: 9 * 60 + 30, timeStr: '9:00 - 9:30 AM' },
-      { name: 'Primaria (Descanso 1)', start: 9 * 60 + 30, end: 10 * 60, timeStr: '9:30 - 10:00 AM' },
-      { name: 'Preescolar (Descanso 2)', start: 11 * 60, end: 11 * 60 + 30, timeStr: '11:00 - 11:30 AM' },
-      { name: 'Primaria (Descanso 2)', start: 11 * 60 + 30, end: 12 * 60, timeStr: '11:30 - 12:00 M' },
+      { name: 'Preescolar (Descanso 1)', start: 10 * 30, end: 10 * 30 + 40, timeStr: '10:30 - 11:10 AM' },
+      { name: 'Primaria (Descanso 1)', start: 9 * 10, end: 9 * 10 + 40, timeStr: '9:10 - 10:30 AM' },
+      { name: 'Preescolar (Descanso 2)', start: 12 * 30, end: 12 * 30 + 40, timeStr: '12:30 - 1:10 PM' },
+      { name: 'Primaria (Descanso 2)', start: 11 * 50, end: 11 * 50 + 40, timeStr: '11:50 - 12:30 PM' },
     ];
   }
 
