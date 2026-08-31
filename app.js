@@ -358,6 +358,24 @@ function getAudioContext() {
   return audioCtx;
 }
 
+// En móvil el AudioContext arranca suspendido hasta el primer toque del usuario
+// Este listener lo despierta en cuanto hay interacción
+function unlockAudioOnMobile() {
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  } else if (!audioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      audioCtx = new AudioContextClass();
+      audioCtx.resume();
+    }
+  }
+}
+
+['touchstart', 'touchend', 'click', 'keydown'].forEach(evt => {
+  document.addEventListener(evt, unlockAudioOnMobile, { once: false, passive: true });
+});
+
 function playPopSound() {
   if (!soundEnabled) return;
   try {
@@ -820,6 +838,7 @@ function render() {
     // Encabezado de categoría
     const heading = document.createElement('div');
     heading.className = 'cat-heading';
+    heading.setAttribute('data-cat-id', cat.id);
     heading.innerHTML = `
       <span class="cat-heading-text">${currentCat === 'favorites' ? '⭐ ' + cat.name : cat.name}</span>
       <div class="cat-heading-line"></div>
@@ -1146,21 +1165,40 @@ document.querySelectorAll('.cat-btn').forEach(btn => {
 });
 
 // Desplazamiento continuo y ultra fluido (60 FPS) estilo banner marquee
-let tickerSpeed = 0.85; // Velocidad de avance continuo fluido
+let tickerSpeed = 0.85;
+let tickerReturning = false;
+let tickerPos = 0;
 
 function runCategoryTicker() {
   if (!isUserInteractingWithCats && catNav) {
     const maxScroll = catNav.scrollWidth - catNav.clientWidth;
     if (maxScroll > 10) {
-      if (catNav.scrollLeft >= maxScroll - 3) {
-        catNav.scrollLeft = 0;
-      } else {
-        catNav.scrollLeft += tickerSpeed;
+      if (!tickerReturning) {
+        if (tickerPos >= maxScroll - 2) {
+          // Llegó al final → volver suavemente al inicio
+          tickerReturning = true;
+          tickerPos = 0;
+          catNav.scrollTo({ left: 0, behavior: 'smooth' });
+          setTimeout(() => {
+            tickerReturning = false;
+          }, 950);
+        } else {
+          tickerPos += tickerSpeed;
+          // Usar scrollTo para compatibilidad total con móvil
+          catNav.scrollTo({ left: tickerPos, behavior: 'instant' });
+        }
       }
     }
   }
   requestAnimationFrame(runCategoryTicker);
 }
+
+// Sincronizar tickerPos si el usuario scrollea manualmente
+catNav.addEventListener('scroll', () => {
+  if (isUserInteractingWithCats) {
+    tickerPos = catNav.scrollLeft;
+  }
+}, { passive: true });
 
 // Iniciar ticker continuo
 requestAnimationFrame(runCategoryTicker);
@@ -1276,6 +1314,186 @@ function launchConfetti() {
 
   animationFrameId = requestAnimationFrame(animate);
 }
+
+// =====================================================
+//  RULETA DEL RECREO – SORPRÉNDEME
+// =====================================================
+document.addEventListener('DOMContentLoaded', () => {
+  const surpriseMeBtn        = document.getElementById('surpriseMeBtn');
+  const surpriseModal        = document.getElementById('surpriseModal');
+  const surpriseCloseBtn     = document.getElementById('surpriseCloseBtn');
+  const spinRouletteBtn      = document.getElementById('spinRouletteBtn');
+  const addSurpriseToCartBtn = document.getElementById('addSurpriseToCartBtn');
+  const rouletteEmoji        = document.getElementById('rouletteEmoji');
+  const rouletteCat          = document.getElementById('rouletteCat');
+  const rouletteName         = document.getElementById('rouletteName');
+  const roulettePrice        = document.getElementById('roulettePrice');
+  const rouletteSlot         = document.getElementById('rouletteSlot');
+
+  let currentSurpriseProduct = null;
+  let isSpinning = false;
+
+  function getAllProducts() {
+    const all = [];
+    CATEGORIES.forEach(cat => {
+      cat.items.forEach(item => {
+        all.push({ ...item, catName: cat.name, catEmoji: cat.emoji });
+      });
+    });
+    return all;
+  }
+
+  function openSurpriseModal() {
+    if (!surpriseModal) return;
+    surpriseModal.classList.remove('hidden');
+    if (rouletteEmoji) rouletteEmoji.textContent = '🎲';
+    if (rouletteCat)   rouletteCat.textContent   = 'Toca para jugar';
+    if (rouletteName)  rouletteName.textContent  = '¿Cuál será tu snack?';
+    if (roulettePrice) roulettePrice.textContent = '';
+    if (addSurpriseToCartBtn) addSurpriseToCartBtn.classList.add('hidden');
+    if (spinRouletteBtn) {
+      spinRouletteBtn.disabled = false;
+      spinRouletteBtn.textContent = '✨ ¡Girar la Ruleta! 🎲';
+    }
+    currentSurpriseProduct = null;
+  }
+
+  function closeSurpriseModal() {
+    if (surpriseModal) surpriseModal.classList.add('hidden');
+    isSpinning = false;
+  }
+
+  function spinRoulette() {
+    if (isSpinning) return;
+    isSpinning = true;
+
+    const allProducts = getAllProducts();
+    if (!allProducts.length) return;
+
+    if (addSurpriseToCartBtn) addSurpriseToCartBtn.classList.add('hidden');
+    if (spinRouletteBtn) spinRouletteBtn.disabled = true;
+    if (rouletteSlot) rouletteSlot.classList.add('spinning');
+
+    let cycles = 0;
+    const totalCycles = 20 + Math.floor(Math.random() * 10);
+    let interval = 70;
+
+    function tick() {
+      const random = allProducts[Math.floor(Math.random() * allProducts.length)];
+      if (rouletteEmoji) rouletteEmoji.textContent = getEmoji(random.name);
+      if (rouletteCat)   rouletteCat.textContent   = random.catName;
+      if (rouletteName)  rouletteName.textContent  = random.name;
+      if (roulettePrice) roulettePrice.textContent = formatPrice(random.price);
+
+      cycles++;
+
+      // Frenar gradualmente
+      if (cycles > totalCycles * 0.55) {
+        interval = Math.min(interval + 20, 350);
+      }
+
+      if (cycles < totalCycles) {
+        setTimeout(tick, interval);
+      } else {
+        // Ganador final
+        const winner = allProducts[Math.floor(Math.random() * allProducts.length)];
+        currentSurpriseProduct = winner;
+
+        if (rouletteEmoji) rouletteEmoji.textContent = getEmoji(winner.name);
+        if (rouletteCat)   rouletteCat.textContent   = winner.catName;
+        if (rouletteName)  rouletteName.textContent  = winner.name;
+        if (roulettePrice) roulettePrice.textContent = formatPrice(winner.price);
+
+        if (rouletteSlot) {
+          rouletteSlot.classList.remove('spinning');
+          rouletteSlot.classList.add('winner-flash');
+          setTimeout(() => rouletteSlot.classList.remove('winner-flash'), 700);
+        }
+
+        if (addSurpriseToCartBtn) addSurpriseToCartBtn.classList.remove('hidden');
+        if (spinRouletteBtn) {
+          spinRouletteBtn.disabled = false;
+          spinRouletteBtn.textContent = '🔄 ¡Girar de nuevo!';
+        }
+
+        playFavSound(true);
+        showToast(`¡La suerte eligió: ${winner.name}! 🎲`, '✨');
+        isSpinning = false;
+      }
+    }
+
+    tick();
+  }
+
+  if (surpriseMeBtn)    surpriseMeBtn.addEventListener('click', openSurpriseModal);
+  if (surpriseCloseBtn) surpriseCloseBtn.addEventListener('click', closeSurpriseModal);
+  if (spinRouletteBtn)  spinRouletteBtn.addEventListener('click', spinRoulette);
+
+  if (addSurpriseToCartBtn) {
+    addSurpriseToCartBtn.addEventListener('click', () => {
+      if (currentSurpriseProduct) {
+        addToCart(currentSurpriseProduct.name, currentSurpriseProduct.price, 1);
+        closeSurpriseModal();
+      }
+    });
+  }
+
+  if (surpriseModal) {
+    surpriseModal.addEventListener('click', (e) => {
+      if (e.target === surpriseModal) closeSurpriseModal();
+    });
+  }
+});
+
+// =====================================================
+//  INDICADOR DE CATEGORÍA ACTIVA AL HACER SCROLL
+// =====================================================
+function getActiveCatFromScroll() {
+  const headings = document.querySelectorAll('.cat-heading[data-cat-id]');
+  if (!headings.length) return null;
+
+  const scrollY = window.scrollY + 180;
+  let activeCat = null;
+
+  headings.forEach(heading => {
+    const top = heading.getBoundingClientRect().top + window.scrollY;
+    if (scrollY >= top) {
+      activeCat = heading.getAttribute('data-cat-id');
+    }
+  });
+
+  return activeCat;
+}
+
+let scrollCatUpdateTimeout = null;
+window.addEventListener('scroll', () => {
+  // Solo cuando estamos en "Todo" (all) para no interferir con la selección manual
+  if (currentCat !== 'all') return;
+
+  if (scrollCatUpdateTimeout) clearTimeout(scrollCatUpdateTimeout);
+  scrollCatUpdateTimeout = setTimeout(() => {
+    const activeCatId = getActiveCatFromScroll();
+    if (!activeCatId) return;
+
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.classList.remove('scroll-active');
+    });
+
+    const activeBtn = document.querySelector(`[data-cat="${activeCatId}"]`);
+    if (activeBtn) {
+      activeBtn.classList.add('scroll-active');
+      // Hacer scroll del nav para mostrar el botón activo
+      const navEl = document.getElementById('catNav');
+      if (navEl) {
+        const btnLeft = activeBtn.offsetLeft;
+        const btnWidth = activeBtn.offsetWidth;
+        const navWidth = navEl.clientWidth;
+        const scrollTarget = btnLeft - (navWidth / 2) + (btnWidth / 2);
+        navEl.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+      }
+    }
+  }, 80);
+}, { passive: true });
 
 // =====================================================
 //  INICIALIZACIÓN
