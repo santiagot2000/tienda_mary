@@ -209,6 +209,7 @@ const CATEGORIES = [
 function getEmoji(name) {
   const n = name.toLowerCase();
   if (n.includes('arepa'))         return '🫓';
+  if (n.includes('arepitas'))      return '🫓';
   if (n.includes('maizito'))       return '🌽';
   if (n.includes('papa'))          return '🍟';
   if (n.includes('platan'))        return '🍌';
