@@ -1,5 +1,5 @@
 // =====================================================
-//  TIENDA LOS PECADOS DE MARY – The New School
+//  TIENDA DE MARY – The New School
 //  Datos y lógica interactiva actualizada
 // =====================================================
 
@@ -683,7 +683,7 @@ function openProductDetailModal(item, categoryName) {
   if (detailCategory) detailCategory.textContent = categoryName || 'Producto';
   if (detailTitle) detailTitle.textContent = item.name;
   if (detailPriceUnit) detailPriceUnit.textContent = `${formatPrice(item.price)} por unidad`;
-  if (detailDescription) detailDescription.textContent = item.desc || 'Delicioso producto disponible en la Tienda Los Pecados de Mary para disfrutar en tus descansos.';
+  if (detailDescription) detailDescription.textContent = item.desc || 'Delicioso producto disponible en la Tienda de Mary para disfrutar en tus descansos.';
 
   updateDetailSubtotal();
 
@@ -1292,7 +1292,7 @@ try {
     sessionStorage.setItem('mary_confetti_welcomed', 'true');
     setTimeout(() => {
       launchConfetti();
-      showToast('¡Bienvenido a la Tienda Los Pecados de Mary! 🎊', '🎈');
+      showToast('¡Bienvenido a la Tienda de Mary! 🎊', '🎈');
     }, 450);
   }
 } catch (e) {
@@ -1307,7 +1307,7 @@ if (logoArea) {
   logoArea.title = '¡Toca el logo para celebrar!';
   logoArea.addEventListener('click', () => {
     launchConfetti();
-    showToast('¡Los Pecados de Mary · The New School! 💛', '🎊');
+    showToast('¡Tienda de Mary · The New School! 💛', '🎊');
   });
 }
 
