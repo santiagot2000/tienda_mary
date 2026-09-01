@@ -1496,9 +1496,94 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // =====================================================
-//  INICIALIZACIÓN
+//  FRASE DEL DÍA
 // =====================================================
-updateSoundToggleUI();
+const FRASES = [
+  "¡El recreo sabe mejor con una buena merienda! 🍟",
+  "Hoy es un gran día para probar algo nuevo 😋",
+  "La energía del recreo empieza con lo que comes 💪",
+  "¿Antojo de algo rico? ¡Aquí lo encontrás! 🛍️",
+  "Cada recreo es una pequeña fiesta 🎉",
+  "La vida es más dulce con un heladito 🍦",
+  "¡Comer rico es una forma de ser feliz! 😊",
+  "El secreto de una buena jornada: una buena merienda 🥐",
+  "¿Frío o caliente? Aquí hay para todos los gustos ☕🧊",
+  "Los mejores momentos del colegio pasan en el recreo 🌟",
+  "Una fruta al día te mantiene con energía ¡y alegría! 🍉",
+  "¡Hoy tu antojo tiene precio justo! 💛",
+  "El sabor del recreo no tiene comparación 😍",
+  "Pequeños gustos, grandes sonrisas 😁",
+  "¿Qué te provoca hoy? ¡La tienda tiene la respuesta! 🎲",
+  "Un buen desayuno es el inicio de un gran día 🥛",
+  "¡La tienda de Mary siempre tiene algo rico para vos! 🛒",
+  "El recreo es tuyo, ¡disfrútalo con algo delicioso! ⭐",
+  "Come bien, aprende bien, vive bien 📚💛",
+  "¿Antojo dulce o salado? Aquí hay para los dos 🍫🧀",
+  "El chocolate siempre es una buena idea 🍫",
+  "¡Que rico estar en The New School! 💙💛",
+  "Cada día tiene su sabor especial 🌈",
+  "La merienda perfecta para la mente perfecta 🧠✨",
+  "¡Hoy la ruleta del recreo te espera! 🎲",
+  "Un jugo natural vale más que mil vitaminas 🥤",
+  "¿Ya viste lo que hay de nuevo hoy? 👀",
+  "¡Comparte tu merienda y multiplica la felicidad! 🤝",
+  "La tienda más chimba del colegio, ¡sin duda! 😎",
+  "¡Recarga energías y vuelve al salón como un campeón! 🏆"
+];
+
+function setFraseDia() {
+  const el = document.getElementById('fraseTexto');
+  if (!el) return;
+  // Usar el día del año como índice para que sea diferente cada día
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const diff = now - start;
+  const oneDay = 1000 * 60 * 60 * 24;
+  const dayOfYear = Math.floor(diff / oneDay);
+  const idx = dayOfYear % FRASES.length;
+  el.textContent = FRASES[idx];
+}
+
+// =====================================================
+//  SPLASH SCREEN
+// =====================================================
+function hideSplash() {
+  const splash = document.getElementById('splashScreen');
+  if (splash) {
+    splash.classList.add('oculto');
+    setTimeout(() => {
+      splash.style.display = 'none';
+    }, 700);
+  }
+}
+
+// Ocultar splash después de 2s (la barra de carga dura 1.6s)
+setTimeout(hideSplash, 2000);
+
+// =====================================================
+//  ANIMACIÓN DEL LOGO
+// =====================================================
+const logoImg = document.getElementById('logoImg');
+
+if (logoImg) {
+  // Al entrar: brillo suave después del splash
+  setTimeout(() => {
+    logoImg.classList.add('brillando');
+    setTimeout(() => logoImg.classList.remove('brillando'), 1300);
+  }, 2400);
+
+  // Al tocar: giro completo
+  logoImg.addEventListener('click', () => {
+    if (logoImg.classList.contains('girando')) return;
+    logoImg.classList.add('girando');
+    setTimeout(() => logoImg.classList.remove('girando'), 750);
+    launchConfetti();
+    showToast('¡Tienda de Mary · The New School! 💛', '🎊');
+  });
+}
+
+// Inicializar frase del día
+setFraseDia();
 updateFavoritesBadge();
 updateCartUI();
 render();
